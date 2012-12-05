@@ -1,0 +1,14 @@
+WEEKLY PAY REPORT FOR WIDGET COMPANY
+
+EMPLOYEE			 WEEKLY PAY
+	0					 200
+	1					 200
+	2					 200
+	3					 200
+	4					 200
+
+Total payroll: $3,517.50
+Total number of Managers paid:	 1
+Total number of Hourly Workers paid:	 2
+Total number of Comission Workers paid:	 1
+Total number of Piece Workers paid:	 1
