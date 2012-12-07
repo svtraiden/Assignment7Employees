@@ -13,8 +13,7 @@ public class EmployeesManager implements EmployeesManagerInterface{
 	
 	public ArrayList<Employee> employeesList = new ArrayList<Employee>();
 	@Override
-	public void addEmployee(int paycode, double firstParam, int secondParam,
-			int empNum) {
+	public void addEmployee(int paycode, double firstParam, int secondParam, int empNum) {
 		// TODO Auto-generated method stub
 		switch (paycode) {
 		case 1: {

@@ -29,7 +29,7 @@ public interface EmployeesManagerInterface {
 	 */
 	public void addEmployee(int paycode, double firstParam, int secondParam,
 			int empNum);
-
+	
 	/**
 	 * Returns the number of Managers in the ArrayList
 	 * 

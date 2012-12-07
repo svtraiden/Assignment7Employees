@@ -17,25 +17,23 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.project7.impl.EmployeesManager;
-import com.project7.interfaces.EmployeesManagerInterface;
 
 public class WorkerManager {
 
 	private JFrame frame;
 	private JTextField txtEmployeeID;
-	private JTextField txtParam1;
-	private JTextField txtParam2;
-	private JLabel lblParam1;
-	private JLabel lblParam2;
+	public JTextField txtParam1;
+	public JTextField txtParam2;
+	public JLabel lblParam1;
+	public JLabel lblParam2;
 	EmployeesManager empMan = new EmployeesManager();
-	public int payCode;
+	public int payCode = 3;
 
 	/**
 	 * Launch the application.
@@ -182,22 +180,43 @@ public class WorkerManager {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//TODO: Add some changes to the GUI depending on the changes
 			switch (e.getActionCommand()) {
 			case "manager" : {
 				payCode = 1;
+				lblParam1.setText("Salary");
+				if(lblParam2.isVisible()||txtParam2.isVisible()) {
+					lblParam2.setVisible(false);
+					txtParam2.setVisible(false);
+				}
 				break;
 			}
 			case "hourlyWorker" : {
 				payCode = 2;
+				lblParam1.setText("Payrate");
+				lblParam2.setText("Hours Worked");
+				if(!lblParam2.isVisible()||!txtParam2.isVisible()) {
+					lblParam2.setVisible(true);
+					txtParam2.setVisible(true);
+				}
 				break;
 			}
-			case "commisionWorker" : {
+			case "comissionWorker" : {
 				payCode = 3;
+				lblParam1.setText("Weekly Sales");
+				if(lblParam2.isVisible()||txtParam2.isVisible()) {
+					lblParam2.setVisible(false);
+					txtParam2.setVisible(false);
+				}
 				break;
 			}
 			case "pieceWorker" : {
 				payCode = 4;
+				lblParam1.setText("Piece Rate");
+				lblParam2.setText("# Pieces");
+				if(!lblParam2.isVisible()||!txtParam2.isVisible()) {
+					lblParam2.setVisible(true);
+					txtParam2.setVisible(true);
+				}
 				break;
 			}
 			}
@@ -213,7 +232,15 @@ public class WorkerManager {
 
 			switch (e.getActionCommand()) {
 			case "add": {
-				//empMan.addEmployee(payCode, firstParam, secondParam, empNum);
+				if (payCode == 1 || payCode == 3){
+					txtParam2.setText("0");
+					empMan.addEmployee(payCode, Double.parseDouble(txtParam1.getText()), 
+							Integer.parseInt(txtParam2.getText()), Integer.parseInt(txtEmployeeID.getText()));
+				}
+				else if(payCode == 2 || payCode == 4){
+					empMan.addEmployee(payCode, Double.parseDouble(txtParam1.getText()), 
+							Integer.parseInt(txtParam2.getText()), Integer.parseInt(txtEmployeeID.getText()));
+				}
 				break;
 			}
 			case "display":
@@ -262,11 +289,9 @@ public class WorkerManager {
 		public void readFile(File directory, File selectedFile) {
 			// This here should write to the ArrayList();
 			BufferedReader br = null;
-			String empID;
 			String firstParam;
 			String secondParam;
 			String thirdParam;
-			String fourthParam;
 			try {
 				br = new BufferedReader(new FileReader(selectedFile));
 				String line = null;
@@ -277,7 +302,6 @@ public class WorkerManager {
 						secondParam = values[1];
 						thirdParam = values[2];
 						if (firstParam.equals("4") || firstParam.equals("2")) {
-							fourthParam = values[3];
 						} else if (firstParam.equals("1")){
 							empMan.addEmployee(1, Double.parseDouble(secondParam),
 									0, Integer.parseInt(thirdParam));
